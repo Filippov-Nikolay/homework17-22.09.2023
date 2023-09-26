@@ -42,6 +42,46 @@ A::~A() {
 	}
 }
 
+//
+//A::A(A&& obj) {
+//	row = obj.row;
+//	obj.row = 0;
+//
+//	column = obj.column;
+//	obj.column = 0;
+//
+//	arr = new int * [row];
+//
+//	for (int i = 0; i < row; i++)
+//		arr[i] = new int[column];
+//
+//	for (int i = 0; i < row; i++)
+//		for (int j = 0; j < column; j++) {
+//			arr[i][j] = obj.arr[i][j];
+//			obj.arr[i][j] = 0;
+//		}
+//}
+//A& A::operator=(A&& obj) {
+//	row = obj.row;
+//	obj.row = 0;
+//
+//	column = obj.column;
+//	obj.column = 0;
+//
+//	arr = new int * [row];
+//
+//	for (int i = 0; i < row; i++)
+//		arr[i] = new int[column];
+//
+//	for (int i = 0; i < row; i++)
+//		for (int j = 0; j < column; j++) {
+//			arr[i][j] = obj.arr[i][j];
+//			obj.arr[i][j] = 0;
+//		}
+//
+//	return *this;
+//}
+
 A& A::operator=(int a) {
 	int** temp = new int* [1];
 	*temp = new int[1];
@@ -93,42 +133,52 @@ istream& operator>>(istream& os, A& obj) {
 
 
 // Перегрузки арифметических операций
-A operator+(const A, const int number) {
-	return A();
+int operator+(const A& obj, const int& number) {	
+	return **obj.GetArr() + number;
 }
-A operator+(const int number, const A) {
-	return A();
+int operator+(const int& number, const A& obj) {
+	return **obj.GetArr() + number;
 }
-A operator+(const A, const A) {
-	return A();
-}
-
-A operator-(const A, const int number) {
-	return A();
-}
-A operator-(const int number, const A) {
-	return A();
-}
-A operator-(const A, const A) {
-	return A();
+int operator+(const A& obj1, const A& obj2) {
+	return **obj1.GetArr() + **obj2.GetArr();
 }
 
-A operator*(const A, const int number) {
-	return A();
+int operator-(const A& obj, const int& number) {
+	return **obj.GetArr() - number;
 }
-A operator*(const int number, const A) {
-	return A();
+int operator-(const int& number, const A& obj) {
+	return **obj.GetArr() - number;
 }
-A operator*(const A, const A) {
-	return A();
+int operator-(const A& obj1, const A& obj2) {
+	return **obj1.GetArr() - **obj2.GetArr();
 }
 
-A operator/(const A, const int number) {
-	return A();
+int operator*(const A& obj, const int& number) {
+	return **obj.GetArr() * number;
 }
-A operator/(const int number, const A) {
-	return A();
+int operator*(const int& number, const A& obj) {
+	return **obj.GetArr() * number;
 }
-A operator/(const A, const A) {
-	return A();
+int operator*(const A& obj1, const A& obj2) {
+	return **obj1.GetArr() * **obj2.GetArr();
+}
+
+double operator/(const A& obj, const int& number) {
+	return **obj.GetArr() / number;
+}
+double operator/(const int& number, const A& obj) {
+	return **obj.GetArr() / number;
+}
+double operator/(const A& obj1, const A& obj2) {
+	if (**obj1.GetArr() == 0 || **obj2.GetArr() == 0)
+		return 0;
+
+	return **obj1.GetArr() / **obj2.GetArr();
+}
+
+bool operator<(const A& obj1, const A& obj2) {
+	return **obj1.GetArr() < **obj2.GetArr();
+}
+bool operator>(const A& obj1, const A& obj2) {
+	return **obj1.GetArr() > **obj2.GetArr();
 }

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-template <class T>
+template <class T = int>
 class Matrix {
 	T** arr;
 	int row;
@@ -25,11 +25,12 @@ public:
 
 	void Input(); // Ввод с клавиатуры
 	void Init(); // Заполнение случ. числами
-	void Print(); // Вывод
+	void Print() const; // Вывод
+	void PrintIndex(int, int) const; // Вывод по индексу
 
 
-	int SearchMax(); // Поиск макс. элемента
-	int SearchMin(); // Поиск мин. элемента
+	void SearchMax(int&, int&); // Поиск макс. элемента
+	void SearchMin(int&, int&); // Поиск мин. элемента
 
 
 	// Аксессоры
@@ -39,10 +40,30 @@ public:
 	void SetColumn(int);
 
 	// Геттеры
-	T** GetArr();
-	int GetRow();
-	int GetColumn();
+	T** GetArr() const;
+	int GetRow() const;
+	int GetColumn() const;
+
+
+	// Перегрузки арифметических операций
+	Matrix<T> operator+(const Matrix<T>& obj); // Перегрузка +
+	Matrix<T> operator-(const Matrix<T>& obj); // Перегрузка -
+	Matrix<T> operator*(const Matrix<T>& obj); // Перегрузка *
+	Matrix<T> operator/(const Matrix<T>& obj); // Перегрузка /
+	Matrix<T> operator+(const int& number); // Перегрузка +
+	Matrix<T> operator-(const int& number); // Перегрузка -
+	Matrix<T> operator*(const int& number); // Перегрузка *
+	Matrix<T> operator/(const int& number); // Перегрузка /
 };
+
+template <class T>
+Matrix<T> operator+(const int number, const Matrix<T>& obj);
+template <class T>
+Matrix<T> operator-(const int number, const Matrix<T>& obj);
+template <class T>
+Matrix<T> operator*(const int number, const Matrix<T>& obj);
+template <class T>
+Matrix<T> operator/(const int number, const Matrix<T>& obj);
 
 // Консутркторы / Деструктор
 template<class T>
@@ -91,7 +112,6 @@ inline Matrix<T>::~Matrix() {
 		delete[] arr;
 	}
 }
-
 // Конструктор переноса
 template<class T>
 inline Matrix<T>::Matrix(Matrix<T>&& obj) {
@@ -101,17 +121,16 @@ inline Matrix<T>::Matrix(Matrix<T>&& obj) {
 	column = obj.column;
 	obj.column = 0;
 
-	arr = new T[obj.row];
+	arr = new T * [row];
 
-	for (int i = 0; i < obj.row; i++) {
-		for (int j = 0; i < obj.column; j++)
-			arr[i] = obj.arr[i][j];
-	}
+	for (int i = 0; i < row; i++)
+		arr[i] = new T[column];
 
-	for (int i = 0; i < obj.row; i++) {
-		arr[i] = new T[obj.column];
-		obj.arr[i] = nullptr;
-	}
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++) {
+			arr[i][j] = obj.arr[i][j];
+			obj.arr[i][j] = 0;
+		}	
 }
 template<class T>
 inline Matrix<T>& Matrix<T>::operator=(Matrix<T>&& obj) {
@@ -121,17 +140,17 @@ inline Matrix<T>& Matrix<T>::operator=(Matrix<T>&& obj) {
 	column = obj.column;
 	obj.column = 0;
 
-	arr = new T[obj.row];
+	arr = new T * [row];
 
-	for (int i = 0; i < obj.row; i++) {
-		for (int j = 0; i < obj.column; j++)
-			arr[i] = obj.arr[i][j];
-	}
+	for (int i = 0; i < row; i++)
+		arr[i] = new T[column];
 
-	for (int i = 0; i < obj.row; i++) {
-		arr[i] = new T[obj.column];
-		obj.arr[i] = nullptr;
-	}
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++) {
+			arr[i][j] = obj.arr[i][j];
+			obj.arr[i][j] = 0;
+		}
+	return *this;
 }
 
 
@@ -163,51 +182,213 @@ inline void Matrix<T>::Init() {
 }
 // Вывод
 template<class T>
-inline void Matrix<T>::Print() {
+inline void Matrix<T>::Print() const {
 	for (int i = 0; i < row; i++) {
 		for (int j = 0; j < column; j++)
 			cout << arr[i][j] << " ";
 		cout << endl;
 	}
 }
-
-
+// Вывод по индексу
 template<class T>
-inline int Matrix<T>::SearchMax() {
-	return 0;
-}
-
-template<class T>
-inline int Matrix<T>::SearchMin() {
-	return 0;
+inline void Matrix<T>::PrintIndex(int index_i, int index_j) const {
+	cout << arr[index_i][index_j];
 }
 
 
+// Поиск макс./мин. элемента
+template<class T>
+inline void Matrix<T>::SearchMax(int& index_i, int& index_j) {
+	index_i = 0;
+	index_j = 0;
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++) {
+			if (i == 0 && j == 0)
+				continue;
+			if (arr[index_i][index_j] < arr[i][j]) {
+				index_i = i;
+				index_j = j;
+			}
+		}
+}
+template<class T>
+inline void Matrix<T>::SearchMin(int& index_i, int& index_j) {
+	index_i = 0;
+	index_j = 0;
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++) {
+			if (i == 0 && j == 0)
+				continue;
+			if (arr[index_i][index_j] > arr[i][j]) {
+				index_i = i;
+				index_j = j;
+			}
+		}
+}
+
+
+// Аксессоры
+// Сеттеры
 template<class T>
 inline void Matrix<T>::SetArr(T* a) {
 	arr = a;
 }
-
 template<class T>
 inline void Matrix<T>::SetRow(int r) {
 	row = r;
 }
-
 template<class T>
 inline void Matrix<T>::SetColumn(int c) {
 	column = c;
 }
 
-
+// Геттеры
 template<class T>
-inline T** Matrix<T>::GetArr() {
+inline T** Matrix<T>::GetArr() const {
 	return arr;
 }
 template<class T>
-inline int Matrix<T>::GetRow() {
+inline int Matrix<T>::GetRow() const {
 	return row;
 }
 template<class T>
-inline int Matrix<T>::GetColumn() {
+inline int Matrix<T>::GetColumn() const {
 	return column;
+}
+
+
+// Перегрузки арифметических операций
+template<class T> // Перегрузка +
+inline Matrix<T> Matrix<T>::operator+(const Matrix<T>& obj) {
+	Matrix<T> rez(row, column);
+	
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			rez.arr[i][j] = (arr[i][j] + obj.arr[i][j]);
+
+	return rez;
+}
+template<class T> // Перегрузка -
+inline Matrix<T> Matrix<T>::operator-(const Matrix<T>& obj) {
+	Matrix<T> rez(row, column);
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			rez.arr[i][j] = (arr[i][j] - obj.arr[i][j]);
+
+	return rez;
+}
+template<class T> // Перегрузка *
+inline Matrix<T> Matrix<T>::operator*(const Matrix<T>& obj) {
+	Matrix<T> rez(row, column);
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			rez.arr[i][j] = (arr[i][j] * obj.arr[i][j]);
+
+	return rez;
+}
+template<class T> // Перегрузка /
+inline Matrix<T> Matrix<T>::operator/(const Matrix<T>& obj) {
+	Matrix<T> rez(row, column);
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			rez.arr[i][j] = (arr[i][j] / obj.arr[i][j]);
+
+	return rez;
+}
+template<class T> // Перегрузка +
+inline Matrix<T> Matrix<T>::operator+(const int& number) {
+	Matrix<T> rez(row, column);
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			rez.arr[i][j] = (arr[i][j] + number);
+
+	return rez;
+}
+template<class T> // Перегрузка -
+inline Matrix<T> Matrix<T>::operator-(const int& number) {
+	Matrix<T> rez(row, column);
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			rez.arr[i][j] = (arr[i][j] - number);
+
+	return rez;
+}
+template<class T> // Перегрузка *
+inline Matrix<T> Matrix<T>::operator*(const int& number) {
+	Matrix<T> rez(row, column);
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			rez.arr[i][j] = (arr[i][j] * number);
+
+	return rez;
+}
+template<class T> // Перегрузка /
+inline Matrix<T> Matrix<T>::operator/(const int& number) {
+	Matrix<T> rez(row, column);
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			rez.arr[i][j] = (arr[i][j] / number);
+
+	return rez;
+}
+template<class T> // Перегрузка +
+inline Matrix<T> operator+(const int number, const Matrix<T>& obj) {
+	int row = obj.GetRow();
+	int column = obj.GetColumn();		
+
+	Matrix<T> rez(row, column);			
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			*(*(rez.GetArr() + j) + i)= *(*(obj.GetArr() + j) + i) + number;
+			 
+	return rez;
+}
+template<class T> // Перегрузка -
+inline Matrix<T> operator-(const int number, const Matrix<T>& obj) {
+	int row = obj.GetRow();
+	int column = obj.GetColumn();
+
+	Matrix<T> rez(row, column);
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			*(*(rez.GetArr() + j) + i) = *(*(obj.GetArr() + j) + i) - number;
+
+	return rez;
+}
+template<class T> // Перегрузка *
+inline Matrix<T> operator*(const int number, const Matrix<T>& obj) {
+	int row = obj.GetRow();
+	int column = obj.GetColumn();
+
+	Matrix<T> rez(row, column);
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			*(*(rez.GetArr() + j) + i) = *(*(obj.GetArr() + j) + i) * number;
+
+	return rez;
+}
+template<class T> // Перегрузка /
+inline Matrix<T> operator/(const int number, const Matrix<T>& obj) {
+	int row = obj.GetRow();
+	int column = obj.GetColumn();
+
+	Matrix<T> rez(row, column);
+
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			*(*(rez.GetArr() + j) + i) = *(*(obj.GetArr() + j) + i) / number;
+
+	return rez;
 }
