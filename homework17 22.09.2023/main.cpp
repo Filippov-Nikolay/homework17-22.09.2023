@@ -10,7 +10,7 @@ int main() {
 
     int index_i = 0, index_j = 0;
 
-    Matrix<A> a(5, 5), b(5, 5);
+    Matrix<A> a(5, 5), b(5, 5), c(0, 0);
 
     cout << "a: " << endl;
     a.Init();
@@ -90,6 +90,7 @@ int main() {
     cout << endl;
 
 
+    // 5 Search
     cout << "MAX:" << endl;
     a.SearchMax(index_i, index_j);
     cout << "index_i: " << index_i << ", index_j: " << index_j << endl;

@@ -78,17 +78,25 @@ inline Matrix<T>::Matrix(int c) {
 }
 template<class T>
 inline Matrix<T>::Matrix(int r, int c) {
-	row = r;
-	column = c;
+	if (r <= 0 || c <= 0) {
+		cout << "Вы ввели неверный размер двумерного массива!" << endl;
+		r = 0;
+		c = 0;
+		arr = nullptr;
+	}
+	else {
+		row = r;
+		column = c;
 
-	arr = new T * [row];
+		arr = new T * [row];
 
-	for (int i = 0; i < row; i++)
-		arr[i] = new T[column];
+		for (int i = 0; i < row; i++)
+			arr[i] = new T[column];
 
-	for (int i = 0; i < row; i++)
-		for (int j = 0; j < column; j++)
-			arr[i][j] = 0;
+		for (int i = 0; i < row; i++)
+			for (int j = 0; j < column; j++)
+				arr[i][j] = 0;
+	}
 }
 template<class T>
 inline Matrix<T>::Matrix(const Matrix<T>& obj) {
