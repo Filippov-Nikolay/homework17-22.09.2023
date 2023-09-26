@@ -1,8 +1,8 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 
-// row - строка
-// column - колонка
+// row - СЃС‚СЂРѕРєР°
+// column - РєРѕР»РѕРЅРєР°
 
 using namespace std;
 
@@ -12,48 +12,48 @@ class Matrix {
 	int row;
 	int column;
 public:
-	// Консутркторы / Деструктор
+	// РљРѕРЅСЃСѓС‚СЂРєС‚РѕСЂС‹ / Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	Matrix();
 	Matrix(int);
 	Matrix(int, int);
-	Matrix(const Matrix<T>&); // Конструктор копирования
+	Matrix(const Matrix<T>&); // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 	~Matrix();
-	// Конструктор переноса
+	// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРЅРѕСЃР°
 	Matrix(Matrix<T>&&);
 	Matrix<T>& operator=(Matrix<T>&& obj);
 
 
-	void Input(); // Ввод с клавиатуры
-	void Init(); // Заполнение случ. числами
-	void Print() const; // Вывод
-	void PrintIndex(int, int) const; // Вывод по индексу
+	void Input(); // Р’РІРѕРґ СЃ РєР»Р°РІРёР°С‚СѓСЂС‹
+	void Init(); // Р—Р°РїРѕР»РЅРµРЅРёРµ СЃР»СѓС‡. С‡РёСЃР»Р°РјРё
+	void Print() const; // Р’С‹РІРѕРґ
+	void PrintIndex(int, int) const; // Р’С‹РІРѕРґ РїРѕ РёРЅРґРµРєСЃСѓ
 
 
-	void SearchMax(int&, int&); // Поиск макс. элемента
-	void SearchMin(int&, int&); // Поиск мин. элемента
+	void SearchMax(int&, int&); // РџРѕРёСЃРє РјР°РєСЃ. СЌР»РµРјРµРЅС‚Р°
+	void SearchMin(int&, int&); // РџРѕРёСЃРє РјРёРЅ. СЌР»РµРјРµРЅС‚Р°
 
 
-	// Аксессоры
-	// Сеттеры
+	// РђРєСЃРµСЃСЃРѕСЂС‹
+	// РЎРµС‚С‚РµСЂС‹
 	void SetArr(T*);
 	void SetRow(int);
 	void SetColumn(int);
 
-	// Геттеры
+	// Р“РµС‚С‚РµСЂС‹
 	T** GetArr() const;
 	int GetRow() const;
 	int GetColumn() const;
 
 
-	// Перегрузки арифметических операций
-	Matrix<T> operator+(const Matrix<T>& obj); // Перегрузка +
-	Matrix<T> operator-(const Matrix<T>& obj); // Перегрузка -
-	Matrix<T> operator*(const Matrix<T>& obj); // Перегрузка *
-	Matrix<T> operator/(const Matrix<T>& obj); // Перегрузка /
-	Matrix<T> operator+(const int& number); // Перегрузка +
-	Matrix<T> operator-(const int& number); // Перегрузка -
-	Matrix<T> operator*(const int& number); // Перегрузка *
-	Matrix<T> operator/(const int& number); // Перегрузка /
+	// РџРµСЂРµРіСЂСѓР·РєРё Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРёС… РѕРїРµСЂР°С†РёР№
+	Matrix<T> operator+(const Matrix<T>& obj); // РџРµСЂРµРіСЂСѓР·РєР° +
+	Matrix<T> operator-(const Matrix<T>& obj); // РџРµСЂРµРіСЂСѓР·РєР° -
+	Matrix<T> operator*(const Matrix<T>& obj); // РџРµСЂРµРіСЂСѓР·РєР° *
+	Matrix<T> operator/(const Matrix<T>& obj); // РџРµСЂРµРіСЂСѓР·РєР° /
+	Matrix<T> operator+(const int& number); // РџРµСЂРµРіСЂСѓР·РєР° +
+	Matrix<T> operator-(const int& number); // РџРµСЂРµРіСЂСѓР·РєР° -
+	Matrix<T> operator*(const int& number); // РџРµСЂРµРіСЂСѓР·РєР° *
+	Matrix<T> operator/(const int& number); // РџРµСЂРµРіСЂСѓР·РєР° /
 };
 
 template <class T>
@@ -65,7 +65,7 @@ Matrix<T> operator*(const int number, const Matrix<T>& obj);
 template <class T>
 Matrix<T> operator/(const int number, const Matrix<T>& obj);
 
-// Консутркторы / Деструктор
+// РљРѕРЅСЃСѓС‚СЂРєС‚РѕСЂС‹ / Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 template<class T>
 inline Matrix<T>::Matrix() {
 	row = 0;
@@ -112,7 +112,7 @@ inline Matrix<T>::~Matrix() {
 		delete[] arr;
 	}
 }
-// Конструктор переноса
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРЅРѕСЃР°
 template<class T>
 inline Matrix<T>::Matrix(Matrix<T>&& obj) {
 	row = obj.row;
@@ -154,7 +154,7 @@ inline Matrix<T>& Matrix<T>::operator=(Matrix<T>&& obj) {
 }
 
 
-// Ввод с клавиатуры
+// Р’РІРѕРґ СЃ РєР»Р°РІРёР°С‚СѓСЂС‹
 template<class T>
 inline void Matrix<T>::Input() {
 	arr = new T * [row];
@@ -168,7 +168,7 @@ inline void Matrix<T>::Input() {
 			cin >> arr[i][j];
 		}
 }
-// Заполнение случ. числами
+// Р—Р°РїРѕР»РЅРµРЅРёРµ СЃР»СѓС‡. С‡РёСЃР»Р°РјРё
 template<class T>
 inline void Matrix<T>::Init() {
 	arr = new T* [row];
@@ -180,7 +180,7 @@ inline void Matrix<T>::Init() {
 		for (int j = 0; j < column; j++)
 			arr[i][j] = rand() % 50;
 }
-// Вывод
+// Р’С‹РІРѕРґ
 template<class T>
 inline void Matrix<T>::Print() const {
 	for (int i = 0; i < row; i++) {
@@ -189,14 +189,14 @@ inline void Matrix<T>::Print() const {
 		cout << endl;
 	}
 }
-// Вывод по индексу
+// Р’С‹РІРѕРґ РїРѕ РёРЅРґРµРєСЃСѓ
 template<class T>
 inline void Matrix<T>::PrintIndex(int index_i, int index_j) const {
 	cout << arr[index_i][index_j];
 }
 
 
-// Поиск макс./мин. элемента
+// РџРѕРёСЃРє РјР°РєСЃ./РјРёРЅ. СЌР»РµРјРµРЅС‚Р°
 template<class T>
 inline void Matrix<T>::SearchMax(int& index_i, int& index_j) {
 	index_i = 0;
@@ -229,8 +229,8 @@ inline void Matrix<T>::SearchMin(int& index_i, int& index_j) {
 }
 
 
-// Аксессоры
-// Сеттеры
+// РђРєСЃРµСЃСЃРѕСЂС‹
+// РЎРµС‚С‚РµСЂС‹
 template<class T>
 inline void Matrix<T>::SetArr(T* a) {
 	arr = a;
@@ -244,7 +244,7 @@ inline void Matrix<T>::SetColumn(int c) {
 	column = c;
 }
 
-// Геттеры
+// Р“РµС‚С‚РµСЂС‹
 template<class T>
 inline T** Matrix<T>::GetArr() const {
 	return arr;
@@ -259,8 +259,8 @@ inline int Matrix<T>::GetColumn() const {
 }
 
 
-// Перегрузки арифметических операций
-template<class T> // Перегрузка +
+// РџРµСЂРµРіСЂСѓР·РєРё Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРёС… РѕРїРµСЂР°С†РёР№
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° +
 inline Matrix<T> Matrix<T>::operator+(const Matrix<T>& obj) {
 	Matrix<T> rez(row, column);
 	
@@ -270,7 +270,7 @@ inline Matrix<T> Matrix<T>::operator+(const Matrix<T>& obj) {
 
 	return rez;
 }
-template<class T> // Перегрузка -
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° -
 inline Matrix<T> Matrix<T>::operator-(const Matrix<T>& obj) {
 	Matrix<T> rez(row, column);
 
@@ -280,7 +280,7 @@ inline Matrix<T> Matrix<T>::operator-(const Matrix<T>& obj) {
 
 	return rez;
 }
-template<class T> // Перегрузка *
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° *
 inline Matrix<T> Matrix<T>::operator*(const Matrix<T>& obj) {
 	Matrix<T> rez(row, column);
 
@@ -290,7 +290,7 @@ inline Matrix<T> Matrix<T>::operator*(const Matrix<T>& obj) {
 
 	return rez;
 }
-template<class T> // Перегрузка /
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° /
 inline Matrix<T> Matrix<T>::operator/(const Matrix<T>& obj) {
 	Matrix<T> rez(row, column);
 
@@ -300,7 +300,7 @@ inline Matrix<T> Matrix<T>::operator/(const Matrix<T>& obj) {
 
 	return rez;
 }
-template<class T> // Перегрузка +
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° +
 inline Matrix<T> Matrix<T>::operator+(const int& number) {
 	Matrix<T> rez(row, column);
 
@@ -310,7 +310,7 @@ inline Matrix<T> Matrix<T>::operator+(const int& number) {
 
 	return rez;
 }
-template<class T> // Перегрузка -
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° -
 inline Matrix<T> Matrix<T>::operator-(const int& number) {
 	Matrix<T> rez(row, column);
 
@@ -320,7 +320,7 @@ inline Matrix<T> Matrix<T>::operator-(const int& number) {
 
 	return rez;
 }
-template<class T> // Перегрузка *
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° *
 inline Matrix<T> Matrix<T>::operator*(const int& number) {
 	Matrix<T> rez(row, column);
 
@@ -330,7 +330,7 @@ inline Matrix<T> Matrix<T>::operator*(const int& number) {
 
 	return rez;
 }
-template<class T> // Перегрузка /
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° /
 inline Matrix<T> Matrix<T>::operator/(const int& number) {
 	Matrix<T> rez(row, column);
 
@@ -340,7 +340,7 @@ inline Matrix<T> Matrix<T>::operator/(const int& number) {
 
 	return rez;
 }
-template<class T> // Перегрузка +
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° +
 inline Matrix<T> operator+(const int number, const Matrix<T>& obj) {
 	int row = obj.GetRow();
 	int column = obj.GetColumn();		
@@ -353,7 +353,7 @@ inline Matrix<T> operator+(const int number, const Matrix<T>& obj) {
 			 
 	return rez;
 }
-template<class T> // Перегрузка -
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° -
 inline Matrix<T> operator-(const int number, const Matrix<T>& obj) {
 	int row = obj.GetRow();
 	int column = obj.GetColumn();
@@ -366,7 +366,7 @@ inline Matrix<T> operator-(const int number, const Matrix<T>& obj) {
 
 	return rez;
 }
-template<class T> // Перегрузка *
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° *
 inline Matrix<T> operator*(const int number, const Matrix<T>& obj) {
 	int row = obj.GetRow();
 	int column = obj.GetColumn();
@@ -379,7 +379,7 @@ inline Matrix<T> operator*(const int number, const Matrix<T>& obj) {
 
 	return rez;
 }
-template<class T> // Перегрузка /
+template<class T> // РџРµСЂРµРіСЂСѓР·РєР° /
 inline Matrix<T> operator/(const int number, const Matrix<T>& obj) {
 	int row = obj.GetRow();
 	int column = obj.GetColumn();

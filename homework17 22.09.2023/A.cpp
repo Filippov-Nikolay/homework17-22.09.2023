@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include "A.h"
 
 using namespace std;
@@ -114,7 +114,7 @@ int A::GetColumn() const {
 }
 
 
-// Перегрузка ввода-вывода
+// РџРµСЂРµРіСЂСѓР·РєР° РІРІРѕРґР°-РІС‹РІРѕРґР°
 ostream& operator<<(ostream& os, const A& obj) {
 	os << **obj.GetArr();
 
@@ -132,7 +132,7 @@ istream& operator>>(istream& os, A& obj) {
 }
 
 
-// Перегрузки арифметических операций
+// РџРµСЂРµРіСЂСѓР·РєРё Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРёС… РѕРїРµСЂР°С†РёР№
 int operator+(const A& obj, const int& number) {	
 	return **obj.GetArr() + number;
 }

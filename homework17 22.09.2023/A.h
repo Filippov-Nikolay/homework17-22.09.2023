@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 
 using namespace std;
@@ -12,48 +12,48 @@ public:
 	A(int, int);
 	A(const A&);
 	~A();
-	// Конструктор переноса
+	// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРЅРѕСЃР°
 	/*
 	A(A&&);
 	A& operator=(A&& obj);
 	*/
 	A& operator=(int a);
 
-	// Аксессоры
-	// Сеттеры
+	// РђРєСЃРµСЃСЃРѕСЂС‹
+	// РЎРµС‚С‚РµСЂС‹
 	void SetArr(int**);
 	void SetRow(int);
 	void SetColumn(int);
 
-	// Геттеры
+	// Р“РµС‚С‚РµСЂС‹
 	int** GetArr() const;
 	int GetRow() const;
 	int GetColumn() const;
 };
 
-// Перегрузка ввода-вывода
+// РџРµСЂРµРіСЂСѓР·РєР° РІРІРѕРґР°-РІС‹РІРѕРґР°
 ostream& operator<<(ostream&, const A&);
 istream& operator>>(istream&, A&);
 
 
-// Перегрузки арифметических операций
-int operator+(const A&, const int&); // Перегрузка +
+// РџРµСЂРµРіСЂСѓР·РєРё Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРёС… РѕРїРµСЂР°С†РёР№
+int operator+(const A&, const int&); // РџРµСЂРµРіСЂСѓР·РєР° +
 int operator+(const int&, const A&);
 int operator+(const A&, const A&);
 
-int operator-(const A&, const int&); // Перегрузка -
+int operator-(const A&, const int&); // РџРµСЂРµРіСЂСѓР·РєР° -
 int operator-(const int&, const A&);
 int operator-(const A&, const A&);
 
-int operator*(const A&, const int&); // Перегрузка *
+int operator*(const A&, const int&); // РџРµСЂРµРіСЂСѓР·РєР° *
 int operator*(const int&, const A&);
 int operator*(const A&, const A&);
 
-double operator/(const A&, const int&); // Перегрузка /
+double operator/(const A&, const int&); // РџРµСЂРµРіСЂСѓР·РєР° /
 double operator/(const int&, const A&);
 double operator/(const A&, const A&);
 
 
-// Перегрузка лог. операций
+// РџРµСЂРµРіСЂСѓР·РєР° Р»РѕРі. РѕРїРµСЂР°С†РёР№
 bool operator<(const A&, const A&);
 bool operator>(const A&, const A&);
